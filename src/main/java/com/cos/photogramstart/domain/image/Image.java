@@ -1,4 +1,4 @@
-package com.cos.photogramstart.domain.subscribe;
+package com.cos.photogramstart.domain.image;
 
 import java.time.LocalDateTime;
 
@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import com.cos.photogramstart.domain.user.User;
 
@@ -24,26 +22,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table( // 제약조건 복합적으로 만들때
-		uniqueConstraints={
-			@UniqueConstraint(
-				name = "subscribe_uk",
-				columnNames={"fromUserId","toUserId"}
-			)
-		}
-	)
-public class Subscribe {
+public class Image {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@JoinColumn(name = "fromUserId") //DB 컬럼명 지정
-	@ManyToOne
-	private User fromUser;
+	private String caption; // 사진설명
 
-	@JoinColumn(name = "toUserId")
+	private String postImageUrl; // 사진을 전송받아서 그 사진을 서버에 특정폴더에 저장 - DB에 저장된 경로를 insert함
+
+	@JoinColumn(name="userId")
 	@ManyToOne
-	private User toUser;
+	private User user;
 
 	private LocalDateTime createDate;
 

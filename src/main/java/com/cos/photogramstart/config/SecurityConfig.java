@@ -22,7 +22,7 @@ public class SecurityConfig {
 		// 
 		http.authorizeRequests()
 			// 아래 주소들로 시작하면 인증이 필요함
-			.antMatchers("/", "/user/**", "/image/**", "/subscribe/**, /comment/**").authenticated()
+			.antMatchers("/", "/user/**", "/image/**", "/subscribe/**, /comment/**","/api/**").authenticated()
 			// 위에 주소말고는 다 허용함
 			.anyRequest().permitAll()
 			.and()
