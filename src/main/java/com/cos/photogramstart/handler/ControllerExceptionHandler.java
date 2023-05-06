@@ -20,7 +20,12 @@ public class ControllerExceptionHandler {
 	// RuntimeException발생시 실행됨
 	@ExceptionHandler(CustomValidationException.class)
 	public String validationException(CustomValidationException e) {
-		return Script.back(e.getErrorMap().toString());
+		if (e.getErrorMap() == null) {
+			return Script.back(e.getMessage());
+		} else {
+			return Script.back(e.getErrorMap().toString());
+		}
+		
 	}
 	
 	// RuntimeException발생시 실행됨
