@@ -14,6 +14,12 @@ public interface SubscribeRepository extends JpaRepository<Subscribe, Integer>{
 	void mSubscribe(int fromUserId, int toUserId); // void말고 int시 성공 = 변경된 행의 개수 리턴 , 실패 = -1 리턴
 	
 	@Modifying
-	@Query(value="DELETE FEOM subscribe WHERE fromUserId = :fromUserId AND toUserId = :toUserId",nativeQuery=true)
+	@Query(value="DELETE FROM subscribe WHERE fromUserId =:fromUserId AND toUserId =:toUserId",nativeQuery=true)
 	void mUnSubscribe(int fromUserId, int toUserId);
+	
+	@Query(value = "select count(*) from subscribe where fromUserId = :principalId AND toUserId = :userId", nativeQuery = true)
+	int mSubscribeState(int principalId, int userId);
+	
+	@Query(value = "select count(*) from subscribe where fromUserId = :userId", nativeQuery = true)
+	int mSubscribeCount(int userId);
 }
