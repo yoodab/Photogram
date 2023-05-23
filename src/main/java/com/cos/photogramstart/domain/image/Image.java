@@ -46,13 +46,15 @@ public class Image {
 	@OneToMany(mappedBy = "image")
 	private List<Likes> likes;
 
-	private LocalDateTime createDate;
+	
 
 	@Transient
 	private boolean likeState;
 	
 	@Transient
 	private int likeCount;
+	
+	private LocalDateTime createDate;
 	
 	@PrePersist
 	public void createDate() {
