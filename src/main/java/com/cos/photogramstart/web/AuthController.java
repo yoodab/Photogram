@@ -48,22 +48,15 @@ public class AuthController {
 	public String signup(@Valid SignupDto signupDto, BindingResult bindingResult) {
 		// key=value (w-xxx-form-urlencoded)
 		// 위 처럼 일반 자료형/Dto로 받으면 xxx형태의 데이터를 받을 수 있음
-		if (bindingResult.hasErrors()) {
-			Map<String, String> errorMap = new HashMap<>();
-
-			for (FieldError error : bindingResult.getFieldErrors()) {
-				errorMap.put(error.getField(), error.getDefaultMessage());
-				System.out.println(error.getDefaultMessage());
-			}
-			throw new CustomValidationException("유효성검사 실패함",errorMap);
-		} else {
+		
 			// User <- SignupDto
 			User user = signupDto.toEntity();
-			User userEntity = authService.회원가입(user);
-			System.out.println(userEntity);
+			authService.회원가입(user);
 
+			
+			// 로그를 남기는 후처리가 들어감
 			return "auth/signin";
-		}
+		
 
 	}
 }
